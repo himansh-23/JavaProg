@@ -2,7 +2,7 @@ package com.javaprog.oops;
 
 public interface AddressManagerInterface {
 	public void create();
-	public void open();
+	public boolean open();
 	public void save();
 	public void saveAs();
 	public void quit();

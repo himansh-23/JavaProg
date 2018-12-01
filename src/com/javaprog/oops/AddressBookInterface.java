@@ -10,5 +10,5 @@ public interface AddressBookInterface
 	public void delete();
 	public void sortByName();
 	public void sortByZip();
-	public void print();
+	public void print(List<Person> listprint);
 }

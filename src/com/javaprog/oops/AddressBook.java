@@ -8,14 +8,14 @@ import com.javaprog.Utilities.Utility;
 public class AddressBook implements AddressBookInterface{
 	
 	Utility input=new Utility();
-	List<Person> list ;
+	List<Person> list;
 	String firstname="";
 	String lastname="";
 	String city="";
 	String zip="";
 	String state="";
 	String phone="";
-	
+	boolean changesmade=false;
 	@Override
 	public void operation(List<Person> receiveList)
 	{
@@ -51,7 +51,7 @@ public class AddressBook implements AddressBookInterface{
 					sortByZip();
 					break;
 				case 6:
-					print();
+					print(list);
 					break;
 				case 7:
 					System.out.println("Exiting");
@@ -66,6 +66,7 @@ public class AddressBook implements AddressBookInterface{
 	
 	public void add()
 	{
+		changesmade=true;
 		System.out.println("Enter firstname");
 		firstname=input.getString();
 		System.out.println("Enter lastname");
@@ -84,6 +85,7 @@ public class AddressBook implements AddressBookInterface{
 	
 	public void edit()
 	{
+		changesmade=true;
 		System.out.println("Enter Person FirstName Of Edited Person");
 		firstname=input.getString();
 		System.out.println("Enter MobileNumber Of Edited Person");
@@ -141,7 +143,7 @@ public class AddressBook implements AddressBookInterface{
 			break;
 			}
 		}
-		if(i>=list.size())
+		if(i>list.size())
 		{
 			System.out.println("No Person Fount With This Details");
 		}
@@ -149,6 +151,7 @@ public class AddressBook implements AddressBookInterface{
 	
 	public void delete()
 	{
+		changesmade=true;
 		System.out.println("Enter Person FirstName Of Deleted Person");
 		firstname=input.getString();
 		System.out.println("Enter MobileNumber Of Deleted Person");
@@ -164,7 +167,7 @@ public class AddressBook implements AddressBookInterface{
 				break;
 			}
 		}
-		if(i>=list.size())
+		if(i>list.size())
 		{
 			System.out.println("No Person Fount With This Details");
 
@@ -173,50 +176,64 @@ public class AddressBook implements AddressBookInterface{
 	
 	public void sortByName()
 	{
-		for(int i=0;i<list.size()-1;i++)
+		List<Person> listTemp=new ArrayList<>();
+		for(int i=0;i<list.size();i++)
 		{
-			for(int j=i+1;j<list.size();j++)
+			listTemp.add(list.get(i));
+		}
+		for(int i=0;i<listTemp.size()-1;i++)
+		{
+			for(int j=i+1;j<listTemp.size();j++)
 			{
-				if(list.get(i).firstname.compareTo(list.get(j).firstname)>0)
+				if(listTemp.get(i).firstname.compareTo(listTemp.get(j).firstname)>0)
 				{
-					Person temp1=list.remove(i);
-					Person temp2=list.remove(j-1);
-					list.add(i, temp2);
-					list.add(j,temp1);
+					Person temp1=listTemp.remove(i);
+					Person temp2=listTemp.remove(j-1);
+					listTemp.add(i, temp2);
+					listTemp.add(j,temp1);
 				}
 			}
 		}
+		print(listTemp);
+		
 	}
 	
 	public void sortByZip()
 	{
-		for(int i=0;i<list.size()-1;i++)
+		List<Person> listTemp=new ArrayList<>();
+		for(int i=0;i<list.size();i++)
 		{
-			for(int j=i+1;j<list.size();j++)
+			listTemp.add(list.get(i));
+		}
+		
+		for(int i=0;i<listTemp.size()-1;i++)
+		{
+			for(int j=i+1;j<listTemp.size();j++)
 			{
-				if(list.get(i).address.zip.compareTo(list.get(j).address.zip)>0)
+				if(listTemp.get(i).address.zip.compareTo(listTemp.get(j).address.zip)>0)
 				{
-					Person temp1=list.remove(i);
-					Person temp2=list.remove(j-1);
-					list.add(i, temp2);
-					list.add(j,temp1);
+					Person temp1=listTemp.remove(i);
+					Person temp2=listTemp.remove(j-1);
+					listTemp.add(i, temp2);
+					listTemp.add(j,temp1);
 				}
 			}
 		}
+		print(listTemp);
 	}
 	
-	public void print()
+	public void print(List<Person> listprint)
 	{
 		System.out.println("FirstName   LastName    City        State       Zip         PhoneNumber \n");
 		String spaces="            ";
-		for(int i=0;i<list.size();i++)
+		for(int i=0;i<listprint.size();i++)
 		{
-			System.out.print(list.get(i).firstname+spaces.substring(list.get(i).firstname.length(),spaces.length()));
-			System.out.print(list.get(i).lastname+spaces.substring(list.get(i).lastname.length(),spaces.length()));
-			System.out.print(list.get(i).address.city+spaces.substring(list.get(i).address.city.length(),spaces.length()));
-			System.out.print(list.get(i).address.state+spaces.substring(list.get(i).address.state.length(),spaces.length()));
-			System.out.print(list.get(i).address.zip+spaces.substring(list.get(i).address.zip.length(),spaces.length()));
-			System.out.print(list.get(i).address.phone+spaces.substring(list.get(i).address.phone.length(),spaces.length()));
+			System.out.print(listprint.get(i).firstname+spaces.substring(listprint.get(i).firstname.length(),spaces.length()));
+			System.out.print(listprint.get(i).lastname+spaces.substring(listprint.get(i).lastname.length(),spaces.length()));
+			System.out.print(listprint.get(i).address.city+spaces.substring(listprint.get(i).address.city.length(),spaces.length()));
+			System.out.print(listprint.get(i).address.state+spaces.substring(listprint.get(i).address.state.length(),spaces.length()));
+			System.out.print(listprint.get(i).address.zip+spaces.substring(listprint.get(i).address.zip.length(),spaces.length()));
+			System.out.print(listprint.get(i).address.phone+spaces.substring(listprint.get(i).address.phone.length(),spaces.length()));
 			System.out.println();
 			
 		}

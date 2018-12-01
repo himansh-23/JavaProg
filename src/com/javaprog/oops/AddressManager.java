@@ -30,8 +30,10 @@ public class AddressManager  implements AddressManagerInterface{
 		else
 		{
 			try {
+				list.clear();
 			mapper.writeValue(new File("/home/administrator/Desktop/AddressBooks/"+name+".json"), list);
 			this.name=name;
+			
 			}
 			catch(IOException e)
 			{
@@ -40,8 +42,9 @@ public class AddressManager  implements AddressManagerInterface{
 		}
 	}
 	
-	public void open()
+	public boolean open()
 	{
+		boolean flag=false;
 		if(filealreadyopenflag==true)
 		{
 			System.out.println("Do You Want To Save Changes For Previous Open File");
@@ -72,21 +75,24 @@ public class AddressManager  implements AddressManagerInterface{
 		if(new File("/home/administrator/Desktop/AddressBooks/"+name+".json").exists())
 		{
 			filealreadyopenflag=true;
+			flag=true;
 			this.name=name;
 			try 
 			{
 				list=mapper.readValue(new File("/home/administrator/Desktop/AddressBooks/"+name+".json"), new TypeReference<List<Person>>(){});
+				addbook.operation(list);
 			} 
 			catch (IOException e) 
 			{
 				e.printStackTrace();
 			}
-			addbook.operation(list);
+			
 		}
 		else
 		{
 			System.out.println("File Not Found");
 		}
+		return flag;
 	}
 	
 	public void save() 

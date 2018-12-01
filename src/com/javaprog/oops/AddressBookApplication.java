@@ -23,15 +23,17 @@ public class AddressBookApplication {
 				case 1:
 					if(fileOpenFlag==true)
 					{
-						System.out.println(" Do You Want To Save Changes\n1. Yes\n 2.No");
-						int check=input.getInt();
-						if
+						System.out.println(" Do You Want To Close Changes\n1. Yes\n 2.No");
+						byte check=input.getByte();
+						if(check==(byte)1)
+						{
+							manager.save();
+						}
 					}
 					manager.create();
 					break;
 				case 2:
-					fileOpenFlag=true;
-					manager.open();
+					fileOpenFlag=manager.open();
 					break;
 				case 3:
 					manager.save();

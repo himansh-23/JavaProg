@@ -9,6 +9,15 @@ public class Doctor {
 	public Doctor() {
 		
 	}
+	
+	public Doctor(int id,String name,String availability,String specialization)
+	{
+		this.id=id;
+		this.name=name;
+		this.availability=availability;
+		this.specialization=specialization;
+	}
+	
 	public int getId() {
 		return id;
 	}

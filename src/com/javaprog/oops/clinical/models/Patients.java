@@ -11,6 +11,15 @@ public class Patients {
 	{
 		
 	}
+	
+	public Patients(int id,String name,String phone,int age)
+	{
+		this.id=id;
+		this.name=name;
+		this.phone=phone;
+		this.age=age;
+	}
+	
 	public String getName() {
 		return name;
 	}

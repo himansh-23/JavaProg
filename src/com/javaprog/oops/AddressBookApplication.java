@@ -8,6 +8,7 @@ public class AddressBookApplication {
 		Utility input=new Utility();
 		AddressManagerInterface manager=new AddressManager();
 		System.out.println("Welcome To Address Book");
+		boolean fileOpenFlag=false;
 		int Answer=0;
 		do {
 			System.out.println("Choose Operation You Want To Do");
@@ -20,9 +21,16 @@ public class AddressBookApplication {
 			switch(Answer)
 			{
 				case 1:
+					if(fileOpenFlag==true)
+					{
+						System.out.println(" Do You Want To Save Changes\n1. Yes\n 2.No");
+						int check=input.getInt();
+						if
+					}
 					manager.create();
 					break;
 				case 2:
+					fileOpenFlag=true;
 					manager.open();
 					break;
 				case 3:

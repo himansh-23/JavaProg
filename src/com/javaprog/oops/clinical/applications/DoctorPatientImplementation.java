@@ -328,12 +328,19 @@ public class DoctorPatientImplementation implements DocotorPatientEntries
 		saveflag=false;
 		changeflag=true;
 		// TODO Auto-generated method stub
+		System.out.println("Enter DoctorName");
 		String doctorName=input.getString();
+		System.out.println("Enter DoctorId");
 		int doctorId=input.getInt();
+		System.out.println("Enter PatientName");
 		String patientName=input.getString();
+		System.out.println("Enter PatientId");
 		int patientId=input.getInt();
+		System.out.println("Enter Availibility");
 		String date=input.getString();
+		System.out.println("Enter Patient Phone Number");
 		String patientphone=input.getString();
+	//	doctorlist.stream().filter(i -> i.)
 		appointmentlist.add(new Appointment(doctorName, doctorId, patientName, patientId, patientphone, date));
 	}
 

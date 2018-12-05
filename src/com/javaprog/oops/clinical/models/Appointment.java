@@ -6,27 +6,27 @@ public class Appointment {
 	int doctorId;
 	String patientName;
 	int patientId;
-	String date;
+	String Availibility;
 	String patientPhone;
 	
 	public Appointment() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Appointment(String doctorName,int doctorId,String patientName,int patientId,String patientPhone,String date)
+	public Appointment(String doctorName,int doctorId,String patientName,int patientId,String patientPhone,String Availibility)
 	{
 		this.doctorName=doctorName;
 		this.doctorId=doctorId;
 		this.patientName=patientName;
 		this.patientId=patientId;
-		this.date=date;
+		this.Availibility=Availibility;
 		this.patientPhone=patientPhone;
 	}
-	public String getDate() {
-		return date;
+	public String getAvailibility() {
+		return Availibility;
 	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setAvailibility(String Availibility) {
+		this.Availibility = Availibility;
 	}
 	
 	public String getDoctorName() {

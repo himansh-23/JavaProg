@@ -5,5 +5,5 @@ public interface AddressManagerInterface {
 	public boolean open();
 	public void save();
 	public void saveAs();
-	public void quit();
+	public void close();
 }

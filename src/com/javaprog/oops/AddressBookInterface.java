@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface AddressBookInterface 
 {
-	public void operation(List<Person> arrayRead);
+	public boolean operation(List<Person> arrayRead);
 	public void add();
 	public void edit();
 	public void delete();

@@ -1,6 +1,6 @@
 /**
  * Compilation javac AnagramDetection.java
- * Execution java com.bridgelabz.Algorithm.AnagramDetection
+ * Execution java com.javaprog.AnagramDetection
  * Purpose: Finding Anagram Between Two String's
  * @author-Himanshu Prajapati
  * @version-1.0.0

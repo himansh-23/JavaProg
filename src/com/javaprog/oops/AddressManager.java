@@ -19,8 +19,24 @@ public class AddressManager  implements AddressManagerInterface{
 	AddressBookInterface addbook=new AddressBook();
 	String name;
 	boolean filealreadyopenflag=false;
+	boolean changemade=false;
 	public void create()
 	{
+		if(filealreadyopenflag==true)
+		{
+			System.out.println("Do You Want To Save Changes For Previous Open File");
+			System.out.println("1. Yes\n2. No");
+			int ans=input.getInt();
+			if(ans==1)
+			{
+			save();
+			filealreadyopenflag=false;
+			}
+			else
+			{
+				filealreadyopenflag=false;
+			}
+		}
 		System.out.println("Give Name Of Address Book");
 		String name=input.getString();
 		if(new File("/home/administrator/Desktop/AddressBooks/"+name+".json").exists())
@@ -58,6 +74,7 @@ public class AddressManager  implements AddressManagerInterface{
 			else
 			{
 				filealreadyopenflag=false;
+				list.clear();
 			}
 		}
 		
@@ -66,6 +83,7 @@ public class AddressManager  implements AddressManagerInterface{
 		System.out.println("Available Files");
 		for(int i=0;i<files.length;i++)
 		{
+			if(files[i].getName().contains(".json"))
 			System.out.println(files[i].getName());
 		}
 		System.out.println();
@@ -80,7 +98,7 @@ public class AddressManager  implements AddressManagerInterface{
 			try 
 			{
 				list=mapper.readValue(new File("/home/administrator/Desktop/AddressBooks/"+name+".json"), new TypeReference<List<Person>>(){});
-				addbook.operation(list);
+				changemade=addbook.operation(list);
 			} 
 			catch (IOException e) 
 			{
@@ -147,9 +165,9 @@ public class AddressManager  implements AddressManagerInterface{
 		
 	}
 	
-	public void quit()
+	public void close()
 	{
-		if(filealreadyopenflag==true)
+		if(filealreadyopenflag==true && changemade==true)
 		{
 			System.out.println("Do You Want To Save Changes For Previous Open File");
 			System.out.println("1. Yes\n2. No");
@@ -158,11 +176,17 @@ public class AddressManager  implements AddressManagerInterface{
 			{
 			save();
 			filealreadyopenflag=false;
+			System.out.println("File Closed");
 			}
 			else
 			{
 				filealreadyopenflag=false;
+				System.out.println("File Closed");
 			}
+		}
+		else if(filealreadyopenflag==true && changemade==false)
+		{
+			filealreadyopenflag=false;
 		}
 	}	
 }

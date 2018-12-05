@@ -17,7 +17,7 @@ public class AddressBook implements AddressBookInterface{
 	String phone="";
 	boolean changesmade=false;
 	@Override
-	public void operation(List<Person> receiveList)
+	public boolean operation(List<Person> receiveList)
 	{
 		list=receiveList;
 	//	boolean state=true;
@@ -62,6 +62,7 @@ public class AddressBook implements AddressBookInterface{
 			}
 					
 		}while(Answer!=7);
+		return changesmade;
 	}
 	
 	public void add()

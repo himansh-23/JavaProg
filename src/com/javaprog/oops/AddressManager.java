@@ -22,7 +22,7 @@ public class AddressManager  implements AddressManagerInterface{
 	boolean changemade=false;
 	public void create()
 	{
-		if(filealreadyopenflag==true)
+		if(filealreadyopenflag==true  && changemade==true)
 		{
 			System.out.println("Do You Want To Save Changes For Previous Open File");
 			System.out.println("1. Yes\n2. No");

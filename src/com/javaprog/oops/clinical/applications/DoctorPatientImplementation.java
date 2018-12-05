@@ -1,19 +1,36 @@
 package com.javaprog.oops.clinical.applications;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 
 import com.javaprog.Utilities.Utility;
 import com.javaprog.oops.clinical.models.Appointment;
 import com.javaprog.oops.clinical.models.Doctor;
 import com.javaprog.oops.clinical.models.Patients;
 
-public class DoctorPatientImplementation implements DocotorPatientEntries{
+public class DoctorPatientImplementation implements DocotorPatientEntries
+{
+	static ObjectMapper mapper=new ObjectMapper(); 
+	List<Patients> personlist=new ArrayList<>();
+	List<Doctor> doctorlist=new ArrayList<>();
+	List<Appointment> appointmentlist=new ArrayList<>();
+	{
+		try {
+			personlist=mapper.readValue(new File("/home/administrator/Desktop/Clinical/Patients.json"), new TypeReference<List<Patients>>() {});
+			doctorlist=mapper.readValue(new File("/home/administrator/Desktop/Clinical/Doctors.json"), new TypeReference<List<Doctor>>() {});
+			appointmentlist=mapper.readValue(new File("/home/administrator/Desktop/Clinical/Appointment.json"), new TypeReference<List<Appointment>>() {});
 	
-	Utility input=new Utility();
+		}
+		catch(Exception e)
+		{
 	
-	List<Patients> personlist;
-	List<Doctor> doctorlist;
-	List<Appointment> appointmentlist;
+		}
+	}
 	
 	int id;
 	String name;
@@ -21,13 +38,15 @@ public class DoctorPatientImplementation implements DocotorPatientEntries{
 	String specialization;
 	String phone;
 	int age;
-	
+	boolean saveflag=false;
+	boolean changeflag=false;
+	Utility input=new Utility();
 	public DoctorPatientImplementation()
 	{
 		
 	}
 	
-	public void operation(List<Patients> personlist,List<Doctor> doctorlist, List<Appointment> appointmentlist)
+	public void operation()
 	{
 		int Answer=0;
 		do {
@@ -37,11 +56,50 @@ public class DoctorPatientImplementation implements DocotorPatientEntries{
 			System.out.println("4. Add Patients");
 			System.out.println("5. Edit Patients");
 			System.out.println("6. Delete Patients");
-	//		System.out.println("7. Save Changes");
-	//		System.out.println("8. Fix Appointment With Doctor For Patients");
+			System.out.println("7. Save Changes");
+			System.out.println("8. Fix Appointment ");
 			System.out.println("9. Exit");
 			Answer=input.getInt();
-			
+			switch(Answer)
+			{
+			case 1:
+				addDoctor();
+				break;
+			case 2:
+				editDoctor();
+				break;
+			case 3:
+				deleteDoctor();
+				break;
+			case 4:
+				addPatient();
+				break;
+			case 5:
+				editPatient();
+				break;
+			case 6:
+				deletePatient();
+				break;
+			case 7:
+				save();
+				break;
+			case 8:
+				fixAppointment();
+				break;
+			case 9:
+				if(saveflag==false && changeflag==true)
+				{
+					System.out.println("Do You Want To save Changes\n 1.yes \n2. no");
+					int Answer2=input.getInt();
+					if(Answer2==1)
+					{
+						save();
+					}
+				}
+				break;
+			default:
+				System.out.println("Invalid Option");
+			}
 			
 		}while(Answer!=9);
 		
@@ -49,22 +107,32 @@ public class DoctorPatientImplementation implements DocotorPatientEntries{
 	
 	public void addDoctor()
 	{
+		saveflag=false;
+		changeflag=true;
 		System.out.println("Enter Name");
 		name=input.getString();
 		System.out.println("Enter Specalization");
 		specialization=input.getString();
 		System.out.println("Enter Availability");
 		availability=input.getString();
-		id=1;
+		id=0;
 		if(doctorlist.size()>=1)
 		{
-		id=doctorlist.get(doctorlist.size()-1).getId();
+			for(int i=0;i<doctorlist.size();i++)
+			{
+				if(id<doctorlist.get(i).getId())
+				{
+					id=doctorlist.get(i).getId();
+				}
+			}
 		}
-		doctorlist.add(new Doctor(id+1,name,specialization,availability));
+		doctorlist.add(new Doctor(id+1,name,availability,specialization));
 	}
 	
 	public void editDoctor()
 	{
+		changeflag=true;
+		saveflag=false;
 		System.out.println("Enter Doctor Name");
 		name=input.getString();
 		int i=0;
@@ -121,6 +189,8 @@ public class DoctorPatientImplementation implements DocotorPatientEntries{
 	
 	public void deleteDoctor()
 	{
+		changeflag=true;
+		saveflag=false;
 		System.out.println("Enter Doctor id");
 		id=input.getInt();
 		int i=0;
@@ -139,6 +209,8 @@ public class DoctorPatientImplementation implements DocotorPatientEntries{
 	
 	public void addPatient() 
 	{
+		changeflag=true;
+		saveflag=false;
 		System.out.println("Enter Patient Name");
 		name=input.getString();
 		System.out.println("Enter Patient Phone Number");
@@ -155,6 +227,8 @@ public class DoctorPatientImplementation implements DocotorPatientEntries{
 	
 	public void editPatient()
 	{
+		changeflag=true;
+		saveflag=false;
 		System.out.println("Enter id Of Patients");
 		id=input.getInt();
 		int i=0;
@@ -215,6 +289,8 @@ public class DoctorPatientImplementation implements DocotorPatientEntries{
 	
 	public void deletePatient()
 	{
+		changeflag=true;
+		saveflag=false;
 		System.out.println("Enter Patient id");
 		id=input.getInt();
 		int i=0;
@@ -233,12 +309,32 @@ public class DoctorPatientImplementation implements DocotorPatientEntries{
 	
 	public void save()
 	{
+		try 
+		{
+			saveflag=true;
+			changeflag=false;
+			mapper.writeValue(new File("/home/administrator/Desktop/Clinical/Patients.json"), personlist);
+			mapper.writeValue(new File("/home/administrator/Desktop/Clinical/Appointment.json"),appointmentlist);
+			mapper.writeValue(new File("/home/administrator/Desktop/Clinical/Doctors.json"), doctorlist);
+		}
+		catch (IOException e) 
+		{	
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void fixAppointment(Doctor d, Patients p) {
+	public void fixAppointment() {
+		saveflag=false;
+		changeflag=true;
 		// TODO Auto-generated method stub
-		
+		String doctorName=input.getString();
+		int doctorId=input.getInt();
+		String patientName=input.getString();
+		int patientId=input.getInt();
+		String date=input.getString();
+		String patientphone=input.getString();
+		appointmentlist.add(new Appointment(doctorName, doctorId, patientName, patientId, patientphone, date));
 	}
 
 }

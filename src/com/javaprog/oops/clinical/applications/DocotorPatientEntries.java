@@ -8,7 +8,7 @@ import com.javaprog.oops.clinical.models.Patients;
 
 public interface DocotorPatientEntries {
 
-	public void operation(List<Patients> personlist,List<Doctor> doctorlist, List<Appointment> appointmentlist);
+	public void operation();
 	void addPatient();
 	void editPatient();
 	void deletePatient();
@@ -16,6 +16,6 @@ public interface DocotorPatientEntries {
 	void editDoctor();
 	void deleteDoctor();
 	void save();
-	void fixAppointment(Doctor d,Patients p);
+	void fixAppointment();
 	
 }

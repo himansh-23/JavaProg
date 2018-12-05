@@ -7,11 +7,12 @@ public class ClinicalStart {
 	public static void main(String[] args) {
 		
 		System.out.println("WELCOME TO CLINICAL MANAGEMENT");
+		//System.out.println();
 		Utility input=new Utility();
 		int Answer=0;
 		
 		do {
-			System.out.println("1. Adding Doctor or Patient");
+			System.out.println("1. Adding Doctor or Patient or Appointment");
 			System.out.println("2. Search");
 			System.out.println("3. Display");
 			System.out.println("4. Close");
@@ -19,10 +20,13 @@ public class ClinicalStart {
 			switch(Answer)
 			{
 			case 1:
+				new DoctorPatientImplementation().operation();
 				break;
 			case 2:
+				new SearchingImplementation().operation();
 				break;
 			case 3:
+				
 				break;
 			case 4:
 				System.out.println("Exiting");
@@ -30,7 +34,7 @@ public class ClinicalStart {
 			default:
 				System.out.println("Invalid Entry");
 			}
-		}while(true);
+		}while(Answer!=4);
 
 	}
 

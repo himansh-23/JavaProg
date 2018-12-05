@@ -1,11 +1,12 @@
 package com.javaprog.oops.clinical.models;
 
 public class Doctor {
-	int id;
-	String name;
-	String availability;
-	String specialization;
-	
+	private int id;
+	private String name;
+	private String availability;
+	private String specialization;
+	int amCount=0;
+	int pmCount=0;
 	public Doctor() {
 		
 	}
@@ -21,9 +22,28 @@ public class Doctor {
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public int getAmCount() {
+		return amCount;
+	}
+
+	public void setAmCount(int amCount) {
+		this.amCount = amCount;
+	}
+
+	public int getPmCount() {
+		return pmCount;
+	}
+
+	public void setPmCount(int pmCount) {
+		this.pmCount = pmCount;
+	}
+
+	
 	public String getName() {
 		return name;
 	}
@@ -42,5 +62,9 @@ public class Doctor {
 	}
 	public void setSpecialization(String specialization) {
 		this.specialization = specialization;
+	}
+	public String toString()
+	{
+		return (name+"   "+id+"    "+availability+"   "+specialization);
 	}
 }

@@ -9,6 +9,19 @@ public class Appointment {
 	String date;
 	String patientPhone;
 	
+	public Appointment() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Appointment(String doctorName,int doctorId,String patientName,int patientId,String patientPhone,String date)
+	{
+		this.doctorName=doctorName;
+		this.doctorId=doctorId;
+		this.patientName=patientName;
+		this.patientId=patientId;
+		this.date=date;
+		this.patientPhone=patientPhone;
+	}
 	public String getDate() {
 		return date;
 	}

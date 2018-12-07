@@ -26,7 +26,7 @@ public class ClinicalStart {
 				new SearchingImplementation().operation();
 				break;
 			case 3:
-				
+				new InformationDisplayImplementation().operation();
 				break;
 			case 4:
 				System.out.println("Exiting");

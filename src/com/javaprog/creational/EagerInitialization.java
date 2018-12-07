@@ -22,3 +22,15 @@ public class EagerInitialization {
 	}
 
 }
+
+class MainEagerInitialization
+{
+	public static void main(String args[]) {
+		EagerInitialization x=EagerInitialization.getInstance();
+		EagerInitialization y=EagerInitialization.getInstance();
+		System.out.println(x.hashCode());
+		System.out.println(y.hashCode());
+		
+	}
+}
+

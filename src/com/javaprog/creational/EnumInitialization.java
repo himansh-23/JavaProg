@@ -13,3 +13,11 @@ enum EnumInitialization
 	obj;
 	
 }
+
+class MainEnumInitialization
+{
+	public static void main(String args[]) {
+		System.out.println(EnumInitialization.obj.hashCode());
+		
+	}
+}

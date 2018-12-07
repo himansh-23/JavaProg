@@ -26,9 +26,15 @@ public class SerializedInitialzation implements Serializable {
 	{
 		return SingletonHelper.obj;
 	}
+	
+
+	protected Object readResolve() 
+	{
+    return getInstance();
+	}
 }
 
-class Main
+class MainSerializedInitialzation
 {
 		public static void main(String[] args) throws Exception 
 		{
@@ -42,7 +48,12 @@ class Main
 	                "filename.ser"));
 	        SerializedInitialzation instanceTwo = (SerializedInitialzation) in.readObject();
 	        in.close();
+	        System.out.println("Before Saving in File");
+	        // hash code of both is same due to resolve method
+	        System.out.println("instanceOne hashCode="+instanceOne.hashCode());
+	        System.out.println("instanceTwo hashCode="+instanceTwo.hashCode());
 	        
+	        System.out.println("After Saving in File");
 	        System.out.println("instanceOne hashCode="+instanceOne.hashCode());
 	        System.out.println("instanceTwo hashCode="+instanceTwo.hashCode());
 	        

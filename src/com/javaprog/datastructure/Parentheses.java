@@ -1,3 +1,12 @@
+/**
+ * Compilation javac Parentheses.java
+ * Execution java com.javaprog.datastructure.Parentheses
+ * Purpose: For Parentheses Balancing Check For a Equation
+ * @author-Himanshu Prajapati
+ * @version-1.0.0
+ * @since-24/11/18
+ */
+
 package com.javaprog.datastructure;
 
 import com.javaprog.Utilities.*;

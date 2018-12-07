@@ -44,3 +44,14 @@ public class ThreadSafeInitialization {
 	}*/
 
 }
+
+class MainThreadSafeInitialization
+{
+	public static void main(String args[]) {
+		ThreadSafeInitialization x=ThreadSafeInitialization.getInstance();
+		ThreadSafeInitialization y=ThreadSafeInitialization.getInstance();
+		System.out.println(x.hashCode());
+		System.out.println(y.hashCode());
+		
+	}
+}

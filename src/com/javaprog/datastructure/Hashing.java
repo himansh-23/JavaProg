@@ -1,3 +1,12 @@
+/**
+ * Compilation javac Hashing.java
+ * Execution java com.javaprog.datastructure.Hashing
+ * Purpose: For Reading Number From File And Arrange it into HashTable For Searching
+ * @author-Himanshu Prajapati
+ * @version-1.0.0
+ * @since-22/11/18
+ */
+
 package com.javaprog.datastructure;
 
 import java.io.FileNotFoundException;

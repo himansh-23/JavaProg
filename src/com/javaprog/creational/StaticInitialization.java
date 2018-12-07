@@ -20,6 +20,7 @@ public class StaticInitialization {
 		catch(Exception e)
 		{
 			throw new RuntimeException("Instance Not Created");
+
 		}
 	}
 	private StaticInitialization()
@@ -27,8 +28,20 @@ public class StaticInitialization {
 		
 	}
 	
-	public StaticInitialization getInstance()
+	public static StaticInitialization getInstance()
 	{
 		return obj;
 	}
 }
+
+class MainStaticInitialization
+{
+	public static void main(String args[]) {
+		StaticInitialization x=StaticInitialization.getInstance();
+		StaticInitialization y=StaticInitialization.getInstance();
+		System.out.println(x.hashCode());
+		System.out.println(y.hashCode());
+		
+	}
+}
+

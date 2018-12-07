@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
@@ -45,7 +46,7 @@ public class DoctorPatientImplementation implements DocotorPatientEntries
 	{
 		
 	}
-	
+	@Override
 	public void operation()
 	{
 		int Answer=0;
@@ -89,7 +90,7 @@ public class DoctorPatientImplementation implements DocotorPatientEntries
 			case 9:
 				if(saveflag==false && changeflag==true)
 				{
-					System.out.println("Do You Want To save Changes\n 1.yes \n2. no");
+					System.out.println("Do You Want To save Changes\n 1.yes \n 2. no");
 					int Answer2=input.getInt();
 					if(Answer2==1)
 					{
@@ -104,7 +105,7 @@ public class DoctorPatientImplementation implements DocotorPatientEntries
 		}while(Answer!=9);
 		
 	}
-	
+	@Override
 	public void addDoctor()
 	{
 		saveflag=false;
@@ -128,7 +129,7 @@ public class DoctorPatientImplementation implements DocotorPatientEntries
 		}
 		doctorlist.add(new Doctor(id+1,name,availability,specialization));
 	}
-	
+	@Override
 	public void editDoctor()
 	{
 		changeflag=true;
@@ -186,7 +187,7 @@ public class DoctorPatientImplementation implements DocotorPatientEntries
 			System.out.println("Doctor Not Found");
 		}
 	}
-	
+	@Override
 	public void deleteDoctor()
 	{
 		changeflag=true;
@@ -217,12 +218,19 @@ public class DoctorPatientImplementation implements DocotorPatientEntries
 		phone=input.getString();
 		System.out.println("Enter Patient Age");
 		age=input.getInt();
-		id=1;
+		id=0;
 		if(personlist.size()>=1)
 		{
-			id=personlist.get(personlist.size()-1).getId();
-			personlist.add(new Patients(id+1,name,phone,age));
+			for(int i=0;i<personlist.size();i++)
+			{
+				if(id<personlist.get(i).getId())
+				{
+					id=personlist.get(i).getId();
+				}
+			}
+			
 		}
+		personlist.add(new Patients(id+1,name,phone,age));
 	}
 	
 	public void editPatient()
@@ -286,7 +294,7 @@ public class DoctorPatientImplementation implements DocotorPatientEntries
 			System.out.println("No Patient Found With This Name");
 		}
 	}
-	
+	@Override
 	public void deletePatient()
 	{
 		changeflag=true;
@@ -306,7 +314,7 @@ public class DoctorPatientImplementation implements DocotorPatientEntries
 			System.out.println("No Patient Found With This Id");
 		}
 	}
-	
+	@Override
 	public void save()
 	{
 		try 
@@ -328,20 +336,66 @@ public class DoctorPatientImplementation implements DocotorPatientEntries
 		saveflag=false;
 		changeflag=true;
 		// TODO Auto-generated method stub
-		System.out.println("Enter DoctorName");
-		String doctorName=input.getString();
 		System.out.println("Enter DoctorId");
 		int doctorId=input.getInt();
-		System.out.println("Enter PatientName");
-		String patientName=input.getString();
 		System.out.println("Enter PatientId");
 		int patientId=input.getInt();
 		System.out.println("Enter Availibility");
-		String date=input.getString();
+		String avail=input.getString();
 		System.out.println("Enter Patient Phone Number");
 		String patientphone=input.getString();
 	//	doctorlist.stream().filter(i -> i.)
-		appointmentlist.add(new Appointment(doctorName, doctorId, patientName, patientId, patientphone, date));
+		Doctor objtemp=(Doctor)doctorlist.stream().filter(i ->i.getId()==doctorId).collect(Collectors.toList()).get(0);
+		Patients objtemp2=(Patients)personlist.stream().filter(i ->i.getId()==patientId).collect(Collectors.toList()).get(0);
+		if(objtemp==null || objtemp2==null || !(objtemp2.getPhone().equals(patientphone)))
+		{
+			System.out.println("Invalid Details");
+			return;
+		}
+		if(objtemp.getAvailability().equals(avail))
+		{
+			if(objtemp.getAvailability().equals("AM"))
+			{
+				if(objtemp.getAmCount()>5)
+				{
+					System.out.println("Doctor Already Have Appointments");
+					return;
+				}
+				else
+				{
+					for(int i=0;i<doctorlist.size();i++)
+					{
+						if(doctorlist.get(i).getId()==doctorId)
+						{
+							int temp=doctorlist.get(i).getAmCount();
+							doctorlist.get(i).setAmCount(temp+1);
+						}
+					}
+				}
+			}
+			else if(objtemp.getAvailability().equals("PM"))
+			{
+				if(objtemp.getPmCount()>5)
+				{
+					System.out.println("Doctor Already Have Appointments");
+					return;
+				}
+				else
+				{
+					for(int i=0;i<doctorlist.size();i++)
+					{
+						if(doctorlist.get(i).getId()==doctorId)
+						{
+							int temp=doctorlist.get(i).getPmCount();
+							doctorlist.get(i).setPmCount(temp+1);
+						}
+					}
+				}
+			}
+		}
+		
+		appointmentlist.add(new Appointment(objtemp.getName(), doctorId, objtemp2.getName(), patientId, patientphone, avail));
+		System.out.println("Appointment Fixed");
 	}
 
 }

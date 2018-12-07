@@ -23,3 +23,13 @@ public class LazyInitialization {
 		return obj;
 	}
 }
+class MainLazyInitialization
+{
+	public static void main(String args[]) {
+		LazyInitialization x=LazyInitialization.getInstance();
+		LazyInitialization y=LazyInitialization.getInstance();
+		System.out.println(x.hashCode());
+		System.out.println(y.hashCode());
+		
+	}
+}
